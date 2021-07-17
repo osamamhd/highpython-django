@@ -7,19 +7,34 @@ from .serializers import ArticleSerializer, CategorySerializer, CommentSerialize
 from .models import Article, Category
 
 
-class ArticleListView(ListAPIView):
-    queryset = Article.objects.all()
-    serializer_class = ArticleSerializer
+class ArticleListView(APIView):
+    def get(self, request, format=None):
+        articles = Article.objects.filter(status="Published").select_related()
+        serializer = ArticleSerializer(articles, many=True)
+        return Response(serializer.data)
 
 
-class CategoriesList(APIView):
+class ArticleDetailView(APIView):
+    def get_object(self, category_slug, article_slug):
+        try:
+            return Article.objects.filter(category__slug=category_slug).get(slug=article_slug)
+        except Article.DoesNotExist:
+            raise Http404
+
+    def get(self, request, category_slug, article_slug, format=None):
+        articles = self.get_object(category_slug, article_slug)
+        serializer = ArticleSerializer(articles)
+        return Response(serializer.data)
+
+
+class CategoriesListView(APIView):
     def get(self, request, format=None):
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
 
-class CategoryDetail(APIView):
+class CategoryDetailView(APIView):
     def get_object(self, category_slug):
         try:
             return Category.objects.get(slug=category_slug)
