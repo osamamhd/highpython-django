@@ -38,8 +38,7 @@ class Article(CommonInfo, models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True)
     image = models.ImageField(upload_to='uploads/covers', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/thumbnails/', blank=True, null=True)
-    content = models.TextField()
-    content_file = models.FileField(upload_to='uploads/content/', blank=True, null=True)
+    content = models.FileField(upload_to='uploads/content/', blank=True, null=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=15, default='Drafted')
     like = models.PositiveSmallIntegerField(default=0)
     heart = models.PositiveSmallIntegerField(default=0)
@@ -48,9 +47,6 @@ class Article(CommonInfo, models.Model):
 
     def get_absolute_url(self):
         return f'{self.category.slug}/{self.slug}/'
-
-    def get_read_time(self):
-        return len(self.content) // 250
 
     def creation_date(self):
         return self.created_at.strftime('%b %d, %y')
