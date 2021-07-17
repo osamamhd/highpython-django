@@ -4,7 +4,7 @@ from .models import Article, Category, Comment
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title', 'tag_list', 'get_read_time']
+    list_display = ['title', 'tag_list', 'category']
 
     def get_queryset(self, request):
         return super().get_queryset(request).prefetch_related('tags')
