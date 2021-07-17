@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Article
+from .models import Article, Category
 from taggit.serializers import (TagListSerializerField, TaggitSerializer)
 
 
@@ -26,3 +26,18 @@ class ArticleSerializer(TaggitSerializer, serializers.ModelSerializer):
                   'get_absolute_url',
                   'content'
                   ]
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    article = serializers.StringRelatedField()
+
+    class Meta:
+        model = Category
+        fields = [
+            'title',
+            'slug',
+            'description',
+            'cover',
+            'get_absolute_url'
+        ]
+
