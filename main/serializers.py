@@ -30,7 +30,7 @@ class ArticleSerializer(TaggitSerializer, serializers.ModelSerializer):
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    article = serializers.StringRelatedField()
+    articles = ArticleSerializer(many=True)
 
     class Meta:
         model = Category
@@ -39,7 +39,8 @@ class CategorySerializer(serializers.ModelSerializer):
             'slug',
             'description',
             'cover',
-            'get_absolute_url'
+            'get_absolute_url',
+            'articles'
         ]
 
 
