@@ -35,7 +35,7 @@ class Article(CommonInfo, models.Model):
     title = models.CharField(max_length=200)
     slug = AutoSlugField(populate_from='title', unique_with='created_at')
     description = models.CharField(max_length=300, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True)
+    category = models.ForeignKey(Category, related_name="articles", on_delete=models.CASCADE)
     image = models.ImageField(upload_to='uploads/covers', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/thumbnails/', blank=True, null=True)
     content = models.FileField(upload_to='uploads/content/', blank=True, null=True)
