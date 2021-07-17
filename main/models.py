@@ -90,3 +90,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text[:50]
+
+    def creation_date(self):
+        return self.created_at.strftime('%b %d, %y')
+
