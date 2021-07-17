@@ -9,6 +9,7 @@ django-autoslug = "*"
 ai-django-core = "*"
 pillow = "*"
 django-taggit = "*"
+djangorestframework = "*"
 
 [dev-packages]
 
