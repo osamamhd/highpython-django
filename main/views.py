@@ -1,8 +1,11 @@
 from rest_framework.generics import ListAPIView, get_object_or_404
 from rest_framework.views import APIView
-from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.mixins import CreateModelMixin
+from rest_framework.decorators import api_view
+
+from django.http import Http404
+
 from .serializers import ArticleSerializer, CategorySerializer, CommentSerializer
 from .models import Article, Category
 
@@ -63,3 +66,37 @@ class CommentCreateListAPIView(CreateModelMixin, ListAPIView):
         article_pk = self.kwargs.get("article_pk", None)
         article = get_object_or_404(Article, pk=article_pk)
         serializer.save(article=article)
+
+
+@api_view(['POST'])
+def article_heart(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    article.heart += 1
+    article.save()
+    data = {
+        'success': True
+    }
+    return Response(data)
+
+
+@api_view(['POST'])
+def article_like(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    article.like += 1
+    article.save()
+    data = {
+        'success': True
+    }
+    return Response(data)
+
+
+
+@api_view(['POST'])
+def article_happy(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    article.happy += 1
+    article.save()
+    data = {
+        'success': True
+    }
+    return Response(data)
