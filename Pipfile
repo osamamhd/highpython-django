@@ -10,6 +10,7 @@ ai-django-core = "*"
 pillow = "*"
 django-taggit = "*"
 djangorestframework = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
