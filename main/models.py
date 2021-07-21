@@ -9,7 +9,7 @@ from autoslug import AutoSlugField
 from ai_django_core.models import CommonInfo
 from taggit.managers import TaggableManager
 
-localhost = 'http://127.0.0.1:8000/'
+localhost = 'http://127.0.0.1:8000'
 STATUS_CHOICES = [('Published', 'PUBLISHED'), ('Drafted', 'DRAFTED')]
 
 
@@ -26,6 +26,14 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_cover(self):
+        if self.cover:
+            return localhost + self.cover.url
+        return ''
+
+    def articles_count(self):
+        return Article.objects.filter(category=self.pk).count()
 
     def get_absolute_url(self):
         return f'/{self.slug}/'
@@ -54,6 +62,11 @@ class Article(CommonInfo, models.Model):
     def get_image(self):
         if self.image:
             return localhost + self.image.url
+        return ''
+
+    def get_content_file(self):
+        if self.content:
+            return localhost + self.content.url
         return ''
 
     def get_thumbnail(self):
