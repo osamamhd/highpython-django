@@ -25,7 +25,7 @@ class ArticleSerializer(TaggitSerializer, serializers.ModelSerializer):
           'get_image',
           'get_thumbnail',
           'get_absolute_url',
-          'content'
+          'get_content_file'
         ]
 
 
@@ -35,10 +35,12 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = [
+            'id',
             'title',
             'slug',
             'description',
-            'cover',
+            'get_cover',
+            'articles_count',
             'get_absolute_url',
             'articles'
         ]
@@ -49,6 +51,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = [
+            'id',
             'author',
             'text',
             'article',
