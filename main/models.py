@@ -9,7 +9,7 @@ from autoslug import AutoSlugField
 from ai_django_core.models import CommonInfo
 from taggit.managers import TaggableManager
 
-localhost = 'http://127.0.0.1:8000'
+localhost = 'https://pythonhigh.pythonanywhere.com'
 STATUS_CHOICES = [('Published', 'PUBLISHED'), ('Drafted', 'DRAFTED')]
 
 
