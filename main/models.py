@@ -9,7 +9,7 @@ from autoslug import AutoSlugField
 from ai_django_core.models import CommonInfo
 from taggit.managers import TaggableManager
 
-localhost = 'https://pythonhigh.pythonanywhere.com'
+localhost = 'http://127.0.0.1:8000'
 STATUS_CHOICES = [('Published', 'PUBLISHED'), ('Drafted', 'DRAFTED')]
 
 
@@ -54,7 +54,7 @@ class Article(CommonInfo, models.Model):
     tags = TaggableManager()
 
     def get_absolute_url(self):
-        return f'{self.category.slug}/{self.slug}/'
+        return f'/{self.category.slug}/{self.slug}/'
 
     def creation_date(self):
         return self.created_at.strftime('%b %d, %y')
