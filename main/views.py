@@ -30,6 +30,11 @@ class ArticleDetailView(APIView):
         return Response(serializer.data)
 
 
+class LatestArticlesList(ListAPIView):
+    queryset = Article.objects.all()[0:3]
+    serializer_class = ArticleSerializer
+
+
 class CategoriesListView(APIView):
     def get(self, request, format=None):
         categories = Category.objects.all()
