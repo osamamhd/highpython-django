@@ -9,7 +9,7 @@ from autoslug import AutoSlugField
 from ai_django_core.models import CommonInfo
 from taggit.managers import TaggableManager
 
-localhost = 'http://pythonhigh.pythonanywhere.com'
+localhost = 'https://pythonhigh.pythonanywhere.com'
 STATUS_CHOICES = [('Published', 'PUBLISHED'), ('Drafted', 'DRAFTED')]
 
 
@@ -46,7 +46,7 @@ class Article(CommonInfo, models.Model):
     category = models.ForeignKey(Category, related_name="articles", on_delete=models.CASCADE)
     image = models.ImageField(upload_to='uploads/covers', blank=True, null=True)
     thumbnail = models.ImageField(upload_to='uploads/thumbnails/', blank=True, null=True)
-    content = models.FileField(upload_to='uploads/content/', blank=True, null=True)
+    content = models.TextField()
     status = models.CharField(choices=STATUS_CHOICES, max_length=15, default='Drafted')
     like = models.PositiveSmallIntegerField(default=0)
     heart = models.PositiveSmallIntegerField(default=0)
@@ -64,11 +64,6 @@ class Article(CommonInfo, models.Model):
             return localhost + self.image.url
         return ''
 
-    def get_content_file(self):
-        if self.content:
-            return localhost + self.content.url
-        return ''
-
     def get_thumbnail(self):
         if self.thumbnail:
             return localhost + self.thumbnail.url
@@ -81,7 +76,7 @@ class Article(CommonInfo, models.Model):
             else:
                 return ''
 
-    def make_thumbnail(self, image, size=(400, 200)):
+    def make_thumbnail(self, image, size=(800, 200)):
         img = Image.open(image)
         img.convert('RGB')
         img.thumbnail(size)

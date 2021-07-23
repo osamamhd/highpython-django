@@ -25,7 +25,7 @@ class ArticleSerializer(TaggitSerializer, serializers.ModelSerializer):
           'get_image',
           'get_thumbnail',
           'get_absolute_url',
-          'get_content_file'
+          'content',
         ]
 
 
